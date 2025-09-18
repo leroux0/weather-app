@@ -2,10 +2,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
-from routers.auth import router as auth_router  # Matches auth.py's router
-from routers.weather import router as weather_router  # FIXED: Use 'router' as defined in weather.py
-from routers.user import router as user_router  # FIXED: Use 'router' as defined in user.py
-from utils.email import send_email
+from routers.auth import router as auth_router
+from routers.weather import router as weather_router
+from routers.user import router as user_router
+from utils.email import send_email  # Verified: Matches new function
 
 app = FastAPI()
 
