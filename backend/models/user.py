@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
-from ..database import Base  # Fixed
+from database import Base  # FIXED: Absolute import
 
 
 class User(Base):
