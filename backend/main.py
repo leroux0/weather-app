@@ -5,14 +5,15 @@ from database import engine, Base
 from routers.auth import router as auth_router
 from routers.weather import router as weather_router
 from routers.user import router as user_router
-from utils.email import send_alert  # FIXED: Changed from send_email to send_alert
+from utils.email import send_alert
+import os
 
 app = FastAPI()
 
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://your-vercel-frontend-url.vercel.app"],
+    allow_origins=["http://localhost:3000", "https://weather-app-frontend-taupe-alpha.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,4 +31,5 @@ async def startup():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("PORT", 8000))  # Use $PORT or default to 8000
+    uvicorn.run(app, host="0.0.0.0", port=port)
