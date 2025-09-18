@@ -1,15 +1,15 @@
-# backend/routers/user.py (temp merge for POST body)
+# backend/routers/user.py
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 import json  # For alerts parse
 from pydantic import BaseModel
 
-from ..database import get_db
-from .auth import get_current_user
-from ..crud.location import get_user_locations, add_location
-from ..schemas.user import UserOut
-from ..utils.email import send_alert
+from database import get_db  # FIXED: Absolute import
+from routers.auth import get_current_user  # FIXED: Absolute import
+from crud.location import get_user_locations, add_location  # FIXED: Absolute import
+from schemas.user import UserOut  # FIXED: Absolute import
+from utils.email import send_alert  # FIXED: Absolute import
 
 router = APIRouter(prefix="/users", tags=["users"])
 

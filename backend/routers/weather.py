@@ -1,10 +1,11 @@
+# backend/routers/weather.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from httpx import get
 
-from ..database import get_db  # Fixed
-from ..schemas.weather import WeatherRequest, WeatherResponse
-from dotenv import load_dotenv  # Fixed: absolute, since it's top-level
+from database import get_db  # FIXED: Absolute import
+from schemas.weather import WeatherRequest, WeatherResponse
+from dotenv import load_dotenv  # Already absolute, fine
 import os
 
 load_dotenv()

@@ -2,7 +2,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
-from routers import auth_router, weather_router, user_router  # FIXED: Absolute import
+from routers.auth import auth_router
+from routers.weather import weather_router
+from routers.user import user_router
 from utils.email import send_email
 
 app = FastAPI()

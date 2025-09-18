@@ -1,12 +1,13 @@
+# backend/routers/auth.py
 from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-from ..database import get_db  # Fixed: .. not ...
-from ..crud.user import create_user, get_user_by_email  # Fixed
-from ..schemas.user import UserCreate, UserOut, Token  # Fixed
-from ..utils.security import verify_password, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, verify_token
+from database import get_db  # FIXED: Absolute import
+from crud.user import create_user, get_user_by_email  # FIXED: Absolute import
+from schemas.user import UserCreate, UserOut, Token  # FIXED: Absolute import
+from utils.security import verify_password, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES, verify_token
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
