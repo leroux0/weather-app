@@ -1,32 +1,31 @@
 # backend/main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import auth_router, weather_router, user_router  # From __init__.py
+from database import engine, Base
+from routers import auth_router, weather_router, user_router  # FIXED: Absolute import
+from utils.email import send_email
 
-from .database import Base, engine  # For table creation
+app = FastAPI()
 
-# Create tables (dev only—use migrations in prod)
-# Base.metadata.create_all(bind=engine)
-
-app = FastAPI(title="Weather App API", description="Personal weather dashboard", version="0.1.0")
-
-# CORS for React dev
+# CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Frontend URL
+    allow_origins=["http://localhost:3000", "https://your-vercel-frontend-url.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Include routers WITHOUT extra prefix—routers already have them
-app.include_router(auth_router)  # Becomes /auth/...
-app.include_router(weather_router)  # /weather/...
-app.include_router(user_router)  # /users/...
+# Include routers
+app.include_router(auth_router, prefix="/auth", tags=["auth"])
+app.include_router(weather_router, prefix="/weather", tags=["weather"])
+app.include_router(user_router, prefix="/users", tags=["users"])
 
-# Root endpoint
-@app.get("/")
-def root():
-    return {"message": "Weather App API is running!"}
+@app.on_event("startup")
+async def startup():
+    # Create DB tables
+    Base.metadata.create_all(bind=engine)
 
-# Note: Auth dep (get_current_user) is already in routers—no global middleware needed
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
