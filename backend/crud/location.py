@@ -1,8 +1,8 @@
 import json
 from sqlalchemy.orm import Session
-from ..models.location import Location  # Fixed
-from ..models.user import User  # Fixed; optional but kept
-from ..schemas.weather import WeatherRequest  # Fixed
+from models.location import Location  # Fixed
+from models.user import User  # Fixed; optional but kept
+from schemas.weather import WeatherRequest  # Fixed
 from typing import List, Dict
 
 
