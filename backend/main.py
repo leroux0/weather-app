@@ -5,7 +5,7 @@ from database import engine, Base
 from routers.auth import router as auth_router
 from routers.weather import router as weather_router
 from routers.user import router as user_router
-from utils.email import send_email  # Verified: Matches new function
+from utils.email import send_alert  # FIXED: Changed from send_email to send_alert
 
 app = FastAPI()
 
